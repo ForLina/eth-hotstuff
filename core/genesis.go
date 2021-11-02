@@ -298,7 +298,7 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 		panic(err)
 	}
 
-	extraBytes := make([]byte, types.HotStuffExtraVanity+len(payload)+types.HotStuffExtraSeal)
+	extraBytes := make([]byte, types.HotStuffExtraVanity+len(payload))
 
 	for i := 0; i < len(payload); i++ {
 		extraBytes[types.HotStuffExtraVanity+i] = payload[i]
@@ -306,11 +306,12 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 
 	var hotStuffExtra1 *types.HotStuffExtra
 	err1 := rlp.DecodeBytes(extraBytes[types.HotStuffExtraVanity:], &hotStuffExtra1)
-	if err != nil {
+	if err1 != nil {
 		panic(err1)
 	}
 
 	fmt.Println("hotStuffExtra1 int to block = ", hotStuffExtra1)
+	fmt.Println("extraBytes[types.HotStuffExtraVanity:] = ", extraBytes[types.HotStuffExtraVanity:])
 
 	head := &types.Header{
 		Number:     new(big.Int).SetUint64(g.Number),
@@ -321,7 +322,7 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 		GasLimit:   g.GasLimit,
 		GasUsed:    g.GasUsed,
 		Difficulty: g.Difficulty,
-		MixDigest:  g.Mixhash,
+		MixDigest:  types.HotStuffDigest,
 		Coinbase:   g.Coinbase,
 		Root:       root,
 	}

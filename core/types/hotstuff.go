@@ -18,6 +18,7 @@ package types
 
 import (
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -91,6 +92,9 @@ func ExtractHotStuffExtra(h *Header) (*HotStuffExtra, error) {
 	}
 
 	var hotStuffExtra *HotStuffExtra
+
+	fmt.Println("h.Extra[HotStuffExtraVanity:] = ", h.Extra[HotStuffExtraVanity:])
+
 	err := rlp.DecodeBytes(h.Extra[HotStuffExtraVanity:], &hotStuffExtra)
 	if err != nil {
 		return nil, err
