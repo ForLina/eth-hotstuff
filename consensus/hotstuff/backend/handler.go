@@ -24,13 +24,13 @@ import (
 	"reflect"
 
 	"github.com/ethereum/go-ethereum/core/types"
+	lru "github.com/hashicorp/golang-lru"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/consensus"
 	"github.com/ethereum/go-ethereum/consensus/hotstuff"
-	// "github.com/ethereum/go-ethereum/log"
+
 	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/hashicorp/golang-lru"
 )
 
 const (
